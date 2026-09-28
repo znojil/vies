@@ -1,0 +1,8 @@
+{
+	"vow": {"available": true},
+	"countries": [
+		{"countryCode": "CZ", "availability": "Available"},
+		{"countryCode": "SK", "availability": "Unavailable"},
+		{"countryCode": "DE", "availability": "Monitoring Disabled"}
+	]
+}

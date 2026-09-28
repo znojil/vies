@@ -1,0 +1,34 @@
+{
+	"name": "znojil/vies",
+	"description": "PHP client for the EU VIES VAT number validation service.",
+	"keywords": ["vies", "eu", "api", "client", "vat", "vat number", "vat validation"],
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{"name": "Marek Znojil"}
+	],
+	"require": {
+		"php": "^8.2",
+		"znojil/http": "^1.1"
+	},
+	"require-dev": {
+		"mockery/mockery": "^1.6",
+		"nette/tester": "^2.6",
+		"phpstan/phpstan": "^2.2",
+		"phpstan/phpstan-mockery": "^2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Znojil\\Vies\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Znojil\\Vies\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"phpstan": "vendor/bin/phpstan",
+		"tester": "vendor/bin/tester tests -s -C"
+	}
+}
