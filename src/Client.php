@@ -20,9 +20,11 @@ final class Client{
 	 * @param Http\Request<TResponse> $request
 	 * @return TResponse
 	 * @throws Exception\ApiException if the API reported an error with HTTP 2xx
-	 * @throws Exception\ServerException on 5xx, with ApiException as previous when the body carries an error payload
 	 * @throws Exception\ClientException on 4xx, with ApiException as previous when the body carries an error payload
-	 * @throws Exception\ResponseException if request not successful
+	 * @throws Exception\ServerException on 5xx, with ApiException as previous when the body carries an error payload
+	 * @throws Exception\ResponseException on any other non-2xx response
+	 * @throws Exception\JsonException if a successful response body is not valid JSON
+	 * @throws Exception\JsonResponseException if a successful response body is not a JSON object or array
 	 */
 	public function send(Http\Request $request): mixed{
 		$uri = (new \Znojil\Http\Message\Uri(self::ApiUrl . '/' . ltrim($request->getUrn(), '/')));
