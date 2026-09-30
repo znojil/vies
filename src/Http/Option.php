@@ -3,10 +3,4 @@ declare(strict_types=1);
 
 namespace Znojil\Vies\Http;
 
-enum Option: string{
-
-	case Timeout = 'timeout';
-
-	case ConnectTimeout = 'connectTimeout';
-
-}
+enum Option: string{}

@@ -27,8 +27,6 @@ final class ZnojilClientTest extends \Tester\TestCase{
 			->with(
 				\Mockery::any(),
 				[
-					CURLOPT_CONNECTTIMEOUT => 10,
-					CURLOPT_TIMEOUT => 5,
 					CURLOPT_USERAGENT => 'Agent' // raw CURLOPT_* passes through
 				]
 			)
@@ -37,11 +35,7 @@ final class ZnojilClientTest extends \Tester\TestCase{
 		Assert::same($response, (new ZnojilClient($httpClient))->send(
 			'POST',
 			'https://example.com/check-vat-number',
-			options: [
-				CURLOPT_CONNECTTIMEOUT => 10,
-				'timeout' => 5,
-				CURLOPT_USERAGENT => 'Agent'
-			]
+			options: [CURLOPT_USERAGENT => 'Agent']
 		));
 	}
 

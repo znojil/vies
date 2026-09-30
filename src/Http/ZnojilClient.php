@@ -26,21 +26,13 @@ final class ZnojilClient implements Client{
 	/**
 	 * @param array<int|string, mixed> $options
 	 * @return array<int, mixed>
-	 * @throws \Znojil\Vies\Exception\InvalidArgumentException on a string key that is not an Option
 	 */
 	private function translateOptions(array $options): array{
 		$translated = [];
 		foreach($options as $k => $v){
 			if(is_string($k)){
-				$option = Option::tryFrom($k)
-					?? throw new \Znojil\Vies\Exception\InvalidArgumentException("Unknown HTTP client option '$k'.");
-
-				$translated[match($option){
-					Option::Timeout => CURLOPT_TIMEOUT,
-					Option::ConnectTimeout => CURLOPT_CONNECTTIMEOUT
-				}] = $v;
-
-				continue;
+				// no Option cases defined yet; translate via Option enum once the first case exists
+				throw new \Znojil\Vies\Exception\InvalidArgumentException("Unknown HTTP client option '$k'.");
 			}
 
 			$translated[$k] = $v;
