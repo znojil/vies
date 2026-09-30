@@ -18,15 +18,4 @@ final class Json{
 		}
 	}
 
-	/**
-	 * @throws JsonException
-	 */
-	public static function encode(mixed $value): string{
-		try{
-			return json_encode($value, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-		}catch(\JsonException $e){
-			throw new JsonException($e->getMessage(), $e->getCode(), $e);
-		}
-	}
-
 }

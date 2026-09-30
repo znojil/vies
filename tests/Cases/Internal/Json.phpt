@@ -28,18 +28,6 @@ final class JsonTest extends \Tester\TestCase{
 		Assert::exception(fn() => Json::decode(''), JsonException::class);
 	}
 
-	public function testEncode(): void{
-		foreach([
-			['{"url":"https://ec.europa.eu"}', ['url' => 'https://ec.europa.eu']],
-			['{"traderName":"Žluťoučký kůň"}', ['traderName' => 'Žluťoučký kůň']]
-		] as $v){
-			Assert::same($v[0], Json::encode($v[1]));
-		}
-
-		// invalid
-		Assert::exception(fn() => Json::encode(NAN), JsonException::class);
-	}
-
 }
 
 (new JsonTest)->run();
