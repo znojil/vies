@@ -27,7 +27,7 @@ final class Client{
 	 * @throws Exception\JsonResponseException if a successful response body is not a JSON object or array
 	 */
 	public function send(Http\Request $request): mixed{
-		$uri = (new \Znojil\Http\Message\Uri(self::ApiUrl . '/' . ltrim($request->getUrn(), '/')));
+		$uri = new \Znojil\Http\Message\Uri(self::ApiUrl . '/' . ltrim($request->getUrn(), '/'));
 
 		$response = $this->httpClient->send($request->getMethod(), $uri, $request->getHeaders(), $request->getData(), $request->getHttpClientOptions());
 
