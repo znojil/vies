@@ -72,7 +72,7 @@ final class VatNumberTest extends \Tester\TestCase{
 	}
 
 	public function testToString(): void{
-		Assert::same('CZ12345674', (string) new VatNumber(Country::CzechRepublic, '12345674'));
+		Assert::same('CZ12345674', (string) VatNumber::parse('12345674', Country::CzechRepublic));
 		Assert::same('EL123456789', (string) VatNumber::parse('GR 123 456 789'));
 	}
 

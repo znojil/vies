@@ -41,7 +41,7 @@ final readonly class VatNumber{
 		return new self($country, $value);
 	}
 
-	public function __construct(
+	private function __construct(
 		public Enum\Country $country,
 		public string $number
 	){}
