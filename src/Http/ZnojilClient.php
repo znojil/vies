@@ -13,7 +13,10 @@ final class ZnojilClient implements Client{
 	public function __construct(
 		?Http\Client $client = null
 	){
-		$this->client = $client ?? new Http\Client;
+		$this->client = $client ?? new Http\Client(defaultCurlOptions: [
+			CURLOPT_CONNECTTIMEOUT => 10,
+			CURLOPT_TIMEOUT => 30
+		]);
 	}
 
 	public function send(string $method, string|Message\UriInterface $uri, array $headers = [], mixed $data = null, array $options = []): Message\ResponseInterface{
