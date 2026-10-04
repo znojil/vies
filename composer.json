@@ -1,6 +1,6 @@
 {
 	"name": "znojil/vies",
-	"description": "PHP client for the EU VIES VAT number validation service.",
+	"description": "🧾 A simple and modern PHP library for communicating with the EU VIES VAT number validation service.",
 	"keywords": ["vies", "eu", "api", "client", "vat", "vat number", "vat validation"],
 	"type": "library",
 	"license": "MIT",
