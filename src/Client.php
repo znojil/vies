@@ -25,6 +25,7 @@ final class Client{
 	 * @throws Exception\ResponseException on any other non-2xx response
 	 * @throws Exception\JsonException if a successful response body is not valid JSON
 	 * @throws Exception\JsonResponseException if a successful response body is not a JSON object or array
+	 * @throws Exception\UnexpectedResponseException if a successful response body does not match the expected shape
 	 */
 	public function send(Http\Request $request): mixed{
 		$uri = new \Znojil\Http\Message\Uri(self::ApiUrl . '/' . ltrim($request->getUrn(), '/'));
@@ -56,7 +57,13 @@ final class Client{
 			};
 		}
 
-		return $request->createResponse($response);
+		try{
+			return $request->createResponse($response);
+		}catch(Exception\Exception $e){
+			throw $e;
+		}catch(\ValueError|\TypeError|\Exception $e){
+			throw new Exception\UnexpectedResponseException('Unexpected response: ' . $e->getMessage(), 0, $body, $e);
+		}
 	}
 
 }

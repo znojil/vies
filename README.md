@@ -161,9 +161,10 @@ The client throws exceptions to help you identify the issue:
 - `Znojil\Vies\Exception\ApiException`: For errors VIES reports in the body of a successful response (e.g. `MS_UNAVAILABLE`). Contains the reported `errors`, each with a `code` and an optional `message`.
 - `Znojil\Vies\Exception\ClientException`: For HTTP client-side errors (4xx). When the body carries an error payload, `getPrevious()` is an `ApiException`.
 - `Znojil\Vies\Exception\ServerException`: For HTTP server-side errors (5xx). When the body carries an error payload, `getPrevious()` is an `ApiException`.
-- `Znojil\Vies\Exception\ResponseException`: For other unsuccessful HTTP responses. The base class of the three above and of `JsonResponseException` — it carries `statusCode` and the raw `responseBody`.
+- `Znojil\Vies\Exception\ResponseException`: For other unsuccessful HTTP responses. The base class of the three above and of `UnexpectedResponseException` — it carries `statusCode` and the raw `responseBody`.
 - `Znojil\Vies\Exception\JsonException`: When a response body is not valid JSON.
-- `Znojil\Vies\Exception\JsonResponseException`: When a response body is valid JSON but not an object or array (subtype of `ResponseException`).
+- `Znojil\Vies\Exception\JsonResponseException`: When a response body is valid JSON but not an object or array (subtype of `UnexpectedResponseException`).
+- `Znojil\Vies\Exception\UnexpectedResponseException`: When a successful response body does not match the expected shape (e.g. an unknown enum value, a missing or mistyped field). The original error is available as `getPrevious()`.
 - `Znojil\Vies\Exception\InvalidArgumentException`: For invalid input (e.g. a VAT number `VatNumber::parse()` cannot handle).
 
 ```php

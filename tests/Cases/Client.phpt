@@ -99,6 +99,35 @@ final class ClientTest extends \Tester\TestCase{
 		Assert::same('<html>Bad Gateway</html>', $e->responseBody);
 	}
 
+	public function testSendThrowsUnexpectedResponseException(): void{
+		// the body does not match the expected shape, the original error is kept as previous
+		foreach([
+			[
+				new Vies\Request\CheckStatusRequest,
+				'{"vow":{"available":true},"countries":[{"countryCode":"AL","availability":"Available"}]}', // unknown country
+				\ValueError::class
+			],
+			[
+				new Vies\Request\CheckStatusRequest,
+				'{"vow":{"available":"yes"},"countries":[]}', // mistyped field
+				\TypeError::class
+			],
+			[
+				new Vies\Request\CheckVatNumberRequest(Vies\Enum\Country::CzechRepublic, '12345674'),
+				'{"countryCode":"CZ","vatNumber":"12345674","requestDate":"not a date","valid":true}', // invalid date
+				\Exception::class
+			]
+		] as [$request, $body, $previous]){
+			/** @var Vies\Exception\UnexpectedResponseException */
+			$e = Assert::exception(
+				fn() => $this->getClient(new Response(body: $body))->send($request),
+				Vies\Exception\UnexpectedResponseException::class
+			);
+			Assert::type($previous, $e->getPrevious());
+			Assert::same($body, $e->responseBody);
+		}
+	}
+
 	private function getClient(Response $response): Vies\Client{
 		$httpClient = \Mockery::mock(Vies\Http\Client::class);
 		$httpClient->shouldReceive('send')
