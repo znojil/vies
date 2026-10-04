@@ -97,6 +97,17 @@ final class ClientTest extends \Tester\TestCase{
 		);
 		Assert::null($e->getPrevious());
 		Assert::same('<html>Bad Gateway</html>', $e->responseBody);
+
+		// malformed (mistyped) error payload must not mask the HTTP error
+		/** @var Vies\Exception\ServerException */
+		$e = Assert::exception(
+			fn() => $this->getClient(new Response(500, body: '{"actionSucceed":false,"errorWrappers":[{"error":42}]}'))
+				->send(new Vies\Request\CheckStatusRequest),
+			Vies\Exception\ServerException::class,
+			"Request failed. Result:\n{\"actionSucceed\":false,\"errorWrappers\":[{\"error\":42}]}",
+			500
+		);
+		Assert::null($e->getPrevious());
 	}
 
 	public function testSendThrowsUnexpectedResponseException(): void{

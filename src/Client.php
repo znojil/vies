@@ -44,8 +44,8 @@ final class Client{
 				}
 			}catch(Exception\ApiException $e){
 				$apiException = $e;
-			}catch(Exception\JsonException){
-				// non-JSON error body (proxy, outage) — keep the raw body message
+			}catch(\ValueError|\TypeError|\Exception){
+				// non-JSON or malformed error body (proxy, outage) — keep the raw body message
 			}
 
 			$message = $apiException?->getMessage() ?? "Request failed. Result:\n" . $body;
