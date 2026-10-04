@@ -24,7 +24,7 @@ interface Request{
 
 	/**
 	 * Options for the HTTP client for this request.
-	 * String keys are Option::* enum values (portable across all client implementations),
+	 * String keys are transport-agnostic options defined by this library,
 	 * int keys are raw CURLOPT_* constants (rejected by non-cURL clients).
 	 * @return array<int|string, mixed>
 	 */

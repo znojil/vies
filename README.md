@@ -150,7 +150,7 @@ class MyCustomHttpClient implements ViesHttpClient{
 $client = new Client(new MyCustomHttpClient);
 ```
 
-`$data` is encoded according to the `Content-Type` header (JSON or form); an empty array or `null` means no content. String keys in `$options` are `Znojil\Vies\Http\Option::*` enum values that every implementation must honor, and unknown string keys must be rejected with an exception. Integer keys are raw `CURLOPT_*` constants — non-cURL implementations must reject them with an exception rather than silently ignore them, so that a consumer never ends up with options that silently don't apply.
+`$data` is encoded according to the `Content-Type` header (JSON or form); an empty array or `null` means no content. String keys in `$options` are transport-agnostic options defined by this library — your implementation must honor them and reject any other string key with an exception. Integer keys are raw `CURLOPT_*` constants — non-cURL implementations must reject them with an exception rather than silently ignore them, so that a consumer never ends up with options that silently don't apply.
 
 ## ⚠️ Error Handling
 

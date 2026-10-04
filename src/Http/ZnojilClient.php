@@ -34,7 +34,7 @@ final class ZnojilClient implements Client{
 		$translated = [];
 		foreach($options as $k => $v){
 			if(is_string($k)){
-				// no Option cases defined yet; translate via Option enum once the first case exists
+				// this library defines no transport-agnostic options yet
 				throw new \Znojil\Vies\Exception\InvalidArgumentException("Unknown HTTP client option '$k'.");
 			}
 
