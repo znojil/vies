@@ -150,7 +150,7 @@ class MyCustomHttpClient implements ViesHttpClient{
 $client = new Client(new MyCustomHttpClient);
 ```
 
-`$data` is JSON-encoded when the `Content-Type` header is JSON and form-encoded otherwise (an empty array then means no content); `null` means no content. String keys in `$options` are transport-agnostic options defined by this library — your implementation must honor them and reject any other string key with an exception. This library does not define any at the moment. Integer keys are raw `CURLOPT_*` constants — non-cURL implementations must reject them with an exception rather than silently ignore them, so that a consumer never ends up with options that silently don't apply.
+Your implementation must return the response for any status code — the library turns error statuses (4xx, 5xx) into its own exceptions, so do not throw on them. `$data` is JSON-encoded when the `Content-Type` header is JSON and form-encoded otherwise (an empty array then means no content); `null` means no content. String keys in `$options` are transport-agnostic options defined by this library — your implementation must honor them and reject any other string key with an exception. This library does not define any at the moment. Integer keys are raw `CURLOPT_*` constants — non-cURL implementations must reject them with an exception rather than silently ignore them, so that a consumer never ends up with options that silently don't apply.
 
 ## ⚠️ Error Handling
 
