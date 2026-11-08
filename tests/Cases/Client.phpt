@@ -137,6 +137,13 @@ final class ClientTest extends \Tester\TestCase{
 			Assert::type($previous, $e->getPrevious());
 			Assert::same($body, $e->responseBody);
 		}
+
+		// exceptions of the library are not wrapped
+		Assert::exception(
+			fn() => $this->getClient(new Response(body: 'non-JSON'))
+				->send(new Vies\Request\CheckStatusRequest),
+			Vies\Exception\JsonException::class
+		);
 	}
 
 	private function getClient(Response $response): Vies\Client{
