@@ -62,7 +62,7 @@ final readonly class CheckedVatNumberDTO{
 	public function getAddressLines(): array{
 		return $this->address !== null
 			? array_values(array_filter(
-				array_map(trim(...), preg_split('~\R~u', $this->address) ?: []),
+				array_map(trim(...), ($lines = preg_split('~\R~u', $this->address)) !== false ? $lines : []),
 				static fn(string $line): bool => $line !== ''
 			))
 			: [];
